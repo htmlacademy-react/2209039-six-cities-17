@@ -8,8 +8,9 @@ type AppScreenProps = {
 function App ({placesCount, cardsCount}: AppScreenProps) {
   return (
     <MainPage
-    placesCount={placesCount}
-    cardsCount={cardsCount}/>
+      placesCount={placesCount}
+      cardsCount={cardsCount}
+    />
   );
 }
 

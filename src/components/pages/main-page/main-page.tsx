@@ -7,7 +7,7 @@ type MainPageProps = {
 }
 
 function MainPage({ placesCount, cardsCount }: MainPageProps): JSX.Element {
-  const cardsCountArray = Array.from({length: cardsCount})
+  const cardsCountArray = Array.from({length: cardsCount});
 
   return (
     <div className="page page--gray page--main">
