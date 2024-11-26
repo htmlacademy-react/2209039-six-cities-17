@@ -1,10 +1,14 @@
 import PlaceCard from '../../palce-card/place-card';
+import { nanoid } from 'nanoid';
 
 type MainPageProps = {
   placesCount: number;
+  cardsCount: number;
 }
 
-function MainPage({ placesCount }: MainPageProps): JSX.Element {
+function MainPage({ placesCount, cardsCount }: MainPageProps): JSX.Element {
+  const cardsCountArray = Array.from({length: cardsCount})
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -95,11 +99,7 @@ function MainPage({ placesCount }: MainPageProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {PlaceCard()}
-                {PlaceCard()}
-                {PlaceCard()}
-                {PlaceCard()}
-                {PlaceCard()}
+                {cardsCountArray.map(() => <PlaceCard key={nanoid()} />)}
               </div>
             </section>
             <div className="cities__right-section">

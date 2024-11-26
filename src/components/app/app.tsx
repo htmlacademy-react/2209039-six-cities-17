@@ -2,11 +2,14 @@ import MainPage from '../pages/main-page/main-page';
 
 type AppScreenProps = {
   placesCount: number;
+  cardsCount: number;
 }
 
-function App ({placesCount}: AppScreenProps) {
+function App ({placesCount, cardsCount}: AppScreenProps) {
   return (
-    <MainPage placesCount={placesCount}/>
+    <MainPage
+    placesCount={placesCount}
+    cardsCount={cardsCount}/>
   );
 }
 

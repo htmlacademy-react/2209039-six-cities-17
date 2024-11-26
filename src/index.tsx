@@ -7,13 +7,15 @@ const root = ReactDOM.createRoot(
 );
 
 const Setting = {
-  PlacesCount: 312
+  PlacesCount: 312,
+  CardsCount: 5
 } as const;
 
 root.render(
   <React.StrictMode>
     <App
       placesCount={Setting.PlacesCount}
+      cardsCount={Setting.CardsCount}
     />
   </React.StrictMode>
 );
