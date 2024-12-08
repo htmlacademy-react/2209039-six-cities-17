@@ -1,15 +1,23 @@
 import { Helmet } from 'react-helmet-async';
 import Header from '../../header/header';
-import PlaceCard from '../../place-card/place-card';
+import PlaceCardList from '../../place-card/place-card-list';
 import MainPageEmpty from './main-page-empty';
+import Offer from '../../../types/types';
+import { useState } from 'react';
 
 type MainPageProps = {
   placesCount: number;
   cardsCount: number;
+  offers: Offer[];
 }
 
-function MainPage({ placesCount, cardsCount }: MainPageProps): JSX.Element {
-  const cardsCountArray = Array.from({length: cardsCount});
+function MainPage({ placesCount, cardsCount, offers }: MainPageProps): JSX.Element {
+  const [activeCard, setActiveCard] = useState<string | null>(null)
+  console.log(activeCard)
+
+  const handleAcrtiveCardChange = (id: string | null) => {
+    setActiveCard(id);
+  }
 
   return (
     <div className="page page--gray page--main">
@@ -76,11 +84,7 @@ function MainPage({ placesCount, cardsCount }: MainPageProps): JSX.Element {
                     <li className="places__option" tabIndex={0}>Top rated first</li>
                   </ul>
                 </form>
-                <div className="cities__places-list places__list tabs__content">
-                  {
-                    cardsCountArray.map(() => <PlaceCard key={cardsCount++} />)
-                  }
-                </div>
+                <PlaceCardList onHandleAcrtiveCardChange={handleAcrtiveCardChange} offers={offers}/>
               </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
