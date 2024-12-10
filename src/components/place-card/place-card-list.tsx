@@ -9,7 +9,7 @@ type PlaceCardListProps = {
 function PlaceCardList ({offers, onHandleAcrtiveCardChange}: PlaceCardListProps) :JSX.Element {
   return (
     <div className="cities__places-list places__list tabs__content">
-      {offers.map((offer, index) => <PlaceCard onHandleAcrtiveCardChange={onHandleAcrtiveCardChange} offer={offer} key={index}/>)}
+      {offers.map((offer) => <PlaceCard onHandleAcrtiveCardChange={onHandleAcrtiveCardChange} offer={offer} key={offer.id}/>)}
     </div>
   );
 }

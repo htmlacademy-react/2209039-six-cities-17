@@ -42,7 +42,7 @@ export const offers: Offer[] = [
       "longitude": 4.673877537499948,
       "zoom": 8
     },
-    "isFavorite": false,
+    "isFavorite": true,
     "isPremium": true,
     "rating": 1,
     "previewImage": "https://static.leonardo-hotels.com/image/leonardohotelbucharestcitycenter_room_comfortdouble2_2022_4000x2600_7e18f254bc75491965d36cc312e8111f_1200x780_mobile_3.jpeg"
@@ -88,7 +88,7 @@ export const offers: Offer[] = [
       "longitude": 4.673877537499948,
       "zoom": 8
     },
-    "isFavorite": false,
+    "isFavorite": true,
     "isPremium": false,
     "rating": 4,
     "previewImage": "https://mriyaresort.com/upload/iblock/626/imzvegenaf3cpjl8yk0y9yoeulj3q1bg.jpg"

@@ -13,7 +13,6 @@ type MainPageProps = {
 
 function MainPage({ placesCount, cardsCount, offers }: MainPageProps): JSX.Element {
   const [activeCard, setActiveCard] = useState<string | null>(null)
-  console.log(activeCard)
 
   const handleAcrtiveCardChange = (id: string | null) => {
     setActiveCard(id);

@@ -1,3 +1,12 @@
-const countStarsNumber = (rating:number):string => `${rating * 20}%`;
+import Offer from "./types/types";
 
-export {countStarsNumber};
+const countStarsNumber = (rating:number):string => `${rating * 20}%`;
+const groupCardsByCities = (cities:Offer[]) => {
+  const favoriteCards =  cities.filter((city) => city.isFavorite)
+  const result = Object.groupBy(favoriteCards, ({ city }) => city.name)
+
+  console.log(result)
+  return result;
+}
+
+export {countStarsNumber, groupCardsByCities};
