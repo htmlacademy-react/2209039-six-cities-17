@@ -4,14 +4,15 @@ import Header from '../../header/header';
 import FavoritesGroup from './favorites-group';
 import Offer from '../../../types/types';
 import { groupCardsByCities } from '../../../utils';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
 type FavoritesProps = {
   offers: Offer[];
 }
 
-function Favorites({offers} : FavoritesProps): JSX.Element {
-  const cardsGroups = groupCardsByCities(offers)
-  console.log('fav', cardsGroups)
+function Favorites({ offers }: FavoritesProps): JSX.Element {
+  const cardsGroups = groupCardsByCities(offers);
   return (
     <div className="page">
       <Helmet>
@@ -22,28 +23,27 @@ function Favorites({offers} : FavoritesProps): JSX.Element {
         <div className="page__favorites-container container">
 
           <section className="favorites">
-          <h1 className="favorites__title">Saved listing</h1>
-          <ul className="favorites__list">
-            {Object.keys(cardsGroups).map((cityKey) => {
-              const cityGroup:Offer[] = cardsGroups[cityKey];
-              console.log('cityGruop',cityGroup)
-              return (
-                <FavoritesGroup
-                  key={cityKey}
-                  offers={cityGroup}
-                  city={cityKey}
-                />
-              );
+            <h1 className="favorites__title">Saved listing</h1>
+            <ul className="favorites__list">
+              {Object.keys(cardsGroups).map((cityKey) => {
+                const cityGroup: Offer[] = cardsGroups[cityKey] || [];
+                return (
+                  <FavoritesGroup
+                    key={cityKey}
+                    offers={cityGroup}
+                    city={cityKey}
+                  />
+                );
               })}
-          </ul>
-        </section>
+            </ul>
+          </section>
 
         </div>
       </main>
       <footer className="footer container">
-        <a className="footer__logo-link" href="main.html">
+        <Link className="footer__logo-link" to={AppRoute.Root}>
           <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33" />
-        </a>
+        </Link>
       </footer>
     </div>
   );

@@ -1,5 +1,6 @@
-import Offer from "../../../types/types";
-import PlaceCard from "../../place-card/place-card";
+import { Link } from 'react-router-dom';
+import Offer from '../../../types/types';
+import PlaceCard from '../../place-card/place-card';
 
 type FavoritesGroupProps = {
   offers: Offer[];
@@ -9,20 +10,19 @@ type FavoritesGroupProps = {
 
 function FavoritesGroup ({offers, city}: FavoritesGroupProps):JSX.Element {
   return (
-    <li className="favorites__locations-items">
-      <div className="favorites__locations locations locations--current">
-        <div className="locations__item">
-          <a className="locations__item-link" href="#">
+    <li className='favorites__locations-items'>
+      <div className='favorites__locations locations locations--current'>
+        <div className='locations__item'>
+          <Link className='locations__item-link' to='#'>
             <span>{city}</span>
-          </a>
+          </Link>
         </div>
       </div>
-      <div className="favorites__places">
+      <div className='favorites__places'>
         {offers.map((offer) =>
-        < PlaceCard key={offer.id} offer={offer} />)}
+          <PlaceCard key={offer.id} offer={offer} cardType={'favorites'} />)}
       </div>
     </li>
-
   );
 }
 
