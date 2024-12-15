@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 type PlaceCardProps = {
   offer: Offer;
   onHandleActiveCardChange?: (id: string | null) => void;
-  cardType: string;
+  cardType: 'favorites' | 'cities';
 }
 
 function PlaceCard(props: PlaceCardProps): JSX.Element {
