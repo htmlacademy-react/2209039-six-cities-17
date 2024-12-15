@@ -28,4 +28,18 @@ export type FormDataType = {
   comment: string;
 };
 
+export type City = {
+  name: string;
+  location: {
+    latitude: number;
+    longitude: number;
+    zoom: number;
+  };
+}
+export type Card = {
+  id: string;
+  latitude: number;
+  longitude: number;
+};
+
 export default Offer;
