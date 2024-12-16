@@ -1,4 +1,4 @@
-import Offer from '../types/types';
+import Offer, {City} from '../types/types';
 
 export const offers: Offer[] = [
   {
@@ -15,8 +15,8 @@ export const offers: Offer[] = [
       }
     },
     'location': {
-      'latitude': 52.35514938496378,
-      'longitude': 4.673877537499948,
+      'latitude': 52.3909553943508,
+      'longitude': 4.85309666406198,
       'zoom': 8
     },
     'isFavorite': false,
@@ -38,8 +38,8 @@ export const offers: Offer[] = [
       }
     },
     'location': {
-      'latitude': 52.35514938496378,
-      'longitude': 4.673877537499948,
+      'latitude': 52.3609553943508,
+      'longitude': 4.85309666406198,
       'zoom': 8
     },
     'isFavorite': true,
@@ -61,8 +61,8 @@ export const offers: Offer[] = [
       }
     },
     'location': {
-      'latitude': 52.35514938496378,
-      'longitude': 4.673877537499948,
+      'latitude': 52.3909553943508,
+      'longitude': 4.929309666406198,
       'zoom': 8
     },
     'isFavorite': false,
@@ -84,8 +84,8 @@ export const offers: Offer[] = [
       }
     },
     'location': {
-      'latitude': 52.35514938496378,
-      'longitude': 4.673877537499948,
+      'latitude': 52.3809553943508,
+      'longitude': 4.939309666406198,
       'zoom': 8
     },
     'isFavorite': true,
@@ -94,3 +94,12 @@ export const offers: Offer[] = [
     'previewImage': 'https://mriyaresort.com/upload/iblock/626/imzvegenaf3cpjl8yk0y9yoeulj3q1bg.jpg'
   }
 ];
+
+export const city: City = {
+  name: 'Amsterdam',
+  location: {
+    latitude: 52.35514938496378,
+    longitude: 4.673877537499948,
+    zoom: 8
+  }
+};

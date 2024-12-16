@@ -13,6 +13,7 @@ type FavoritesProps = {
 
 function Favorites({ offers }: FavoritesProps): JSX.Element {
   const cardsGroups = groupCardsByCities(offers);
+  console.log(cardsGroups)
   return (
     <div className="page">
       <Helmet>

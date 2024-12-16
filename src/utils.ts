@@ -3,7 +3,8 @@ import Offer from './types/types';
 const countStarsNumber = (rating: number): string => `${rating * 20}%`;
 const groupCardsByCities = (cities: Offer[]) => {
   const favoriteCards: Offer[] = cities.filter((city) => city.isFavorite);
-  const result = Object.groupBy(favoriteCards, ({ city }): string => city.name);
+  console.log(favoriteCards)
+  const result = Object.groupBy(favoriteCards, (card: Offer): string => card.city.name);
 
   return result;
 };

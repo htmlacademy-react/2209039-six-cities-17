@@ -2,22 +2,25 @@ import { Helmet } from 'react-helmet-async';
 import Header from '../../header/header';
 import PlaceCardList from '../../place-card/place-card-list';
 import MainPageEmpty from './main-page-empty';
-import Offer from '../../../types/types';
+import Offer, {City} from '../../../types/types';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Map from '../../map/map';
 
 type MainPageProps = {
   placesCount: number;
   cardsCount: number;
   offers: Offer[];
+  city: City;
 }
 
-function MainPage({ placesCount, cardsCount, offers }: MainPageProps): JSX.Element {
-  const [activeCard, setActiveCard] = useState<string | null>(null);
+function MainPage({ placesCount, cardsCount, offers, city }: MainPageProps): JSX.Element {
+  const [activeCard, setActiveCard] = useState<Offer | undefined>(undefined);
 
 
-  const handleActiveCardChange = (id: string | null) => {
-    setActiveCard(id);
+  const handleActiveCardChange = (itemId: string | null) => {
+    const currentCard = offers.find((card) => card.id === itemId);
+    return setActiveCard(currentCard);
   };
 
   return (
@@ -88,7 +91,7 @@ function MainPage({ placesCount, cardsCount, offers }: MainPageProps): JSX.Eleme
                 <PlaceCardList onHandleActiveCardChange={handleActiveCardChange} offers={offers} />
               </section>
               <div className='cities__right-section'>
-                <section className='cities__map map'></section>
+                <Map city={city} offers={offers} activeCard={activeCard}/>
               </div>
             </div>
             : <MainPageEmpty />}
