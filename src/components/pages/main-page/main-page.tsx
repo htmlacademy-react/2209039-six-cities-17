@@ -91,7 +91,7 @@ function MainPage({ placesCount, cardsCount, offers, city }: MainPageProps): JSX
                 <PlaceCardList onHandleActiveCardChange={handleActiveCardChange} offers={offers} />
               </section>
               <div className='cities__right-section'>
-                <Map city={city} offers={offers} activeCard={activeCard}/>
+                <Map city={city} offers={offers} activeCard={activeCard} page={'cities'}/>
               </div>
             </div>
             : <MainPageEmpty />}
