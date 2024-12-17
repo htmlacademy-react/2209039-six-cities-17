@@ -7,16 +7,17 @@ import OfferPage from '../pages/offer-page/offer-page';
 import PageNotFound from '../pages/page-not-found/page-not-found';
 import PrivateRoute from '../private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
-import Offer, {City} from '../../types/types';
+import Offer, {City, Reviews} from '../../types/types';
 
 type AppScreenProps = {
   placesCount: number;
   cardsCount: number;
   offers: Offer[];
   city: City;
+  reviews: Reviews;
 }
 
-function App ({placesCount, cardsCount, offers, city}: AppScreenProps) : JSX.Element {
+function App ({placesCount, cardsCount, offers, city, reviews}: AppScreenProps) : JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -41,7 +42,7 @@ function App ({placesCount, cardsCount, offers, city}: AppScreenProps) : JSX.Ele
           />
           <Route
             path={AppRoute.Offer}
-            element={<OfferPage />}
+            element={<OfferPage reviews={reviews} offers={offers} city={city}/>}
           />
           <Route
             path='*'
