@@ -10,8 +10,6 @@ const groupCardsByCities = (cities: Offer[]) => {
 };
 
 const convertDateToMonthYearType = (date: string):string => dayjs(date).format('MMMM YYYY');
-const counntMapStyle = (className:string):string => {
-  return className === 'cities' ? '100%' : '579px'
-}
+const counntMapStyle = (className:string):string => className === 'cities' ? '100%' : '579px';
 
 export {countStarsNumber, groupCardsByCities, convertDateToMonthYearType, counntMapStyle};

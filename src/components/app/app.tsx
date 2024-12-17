@@ -15,9 +15,10 @@ type AppScreenProps = {
   offers: Offer[];
   city: City;
   reviews: Reviews;
+  offersNearby: Offer[];
 }
 
-function App ({placesCount, cardsCount, offers, city, reviews}: AppScreenProps) : JSX.Element {
+function App ({placesCount, cardsCount, offers, city, reviews, offersNearby}: AppScreenProps) : JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -42,7 +43,7 @@ function App ({placesCount, cardsCount, offers, city, reviews}: AppScreenProps) 
           />
           <Route
             path={AppRoute.Offer}
-            element={<OfferPage reviews={reviews} offers={offers} city={city}/>}
+            element={<OfferPage reviews={reviews} offers={offersNearby} city={city}/>}
           />
           <Route
             path='*'
