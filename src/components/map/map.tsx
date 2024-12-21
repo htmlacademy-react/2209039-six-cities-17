@@ -4,6 +4,7 @@ import 'leaflet/dist/leaflet.css';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../const';
 import Offer, {City} from '../../types/types';
 import useMap from '../hooks/use-map';
+import { counntMapStyle } from '../../utils';
 
 const defaultCustomIcon = new Icon({
   iconUrl: URL_MARKER_DEFAULT,
@@ -21,13 +22,15 @@ type MapProps = {
   city: City;
   offers: Offer[];
   activeCard: Offer | undefined;
+  page: 'offer' | 'cities';
 };
 
 function Map(props: MapProps): JSX.Element {
-  const {city, offers, activeCard} = props;
+  const {city, offers, activeCard, page} = props;
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
+
 
   useEffect(() => {
     if (map) {
@@ -53,7 +56,7 @@ function Map(props: MapProps): JSX.Element {
     }
   }, [map, offers, activeCard]);
 
-  return <section className='cities__map map' style={{height: '512px'}} ref={mapRef}></section>;
+  return <section className={`${page}__map map`} style={{height:counntMapStyle(page)}} ref={mapRef}></section>;
 }
 
 export default Map;
