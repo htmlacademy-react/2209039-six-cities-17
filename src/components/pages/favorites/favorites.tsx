@@ -3,7 +3,7 @@ import Header from '../../header/header';
 // import FavoritesEmpty from './favorites-empty';
 import FavoritesGroup from './favorites-group';
 import Offer from '../../../types/types';
-import { groupCardsByCities } from '../../../utils';
+import { groupCardsByCities, findFavoriteCards } from '../../../utils';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 
@@ -12,7 +12,8 @@ type FavoritesProps = {
 }
 
 function Favorites({ offers }: FavoritesProps): JSX.Element {
-  const cardsGroups = groupCardsByCities(offers);
+  const favoriteCards = findFavoriteCards(offers);
+  const cardsGroups = groupCardsByCities(favoriteCards);
   return (
     <div className="page">
       <Helmet>
