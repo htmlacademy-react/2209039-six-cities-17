@@ -7,14 +7,14 @@ import { useState } from 'react';
 import Map from '../../map/map';
 import { LocationsList } from '../../locations/locations-list';
 import { useAppSelector } from '../../hooks/use-app-dispatch';
+import { findOffersQuantity } from '../../../utils';
 
 type MainPageProps = {
-  placesCount: number;
   offers: Offer[];
   city: City;
 }
 
-function MainPage({ placesCount, offers, city }: MainPageProps): JSX.Element {
+function MainPage({ offers, city }: MainPageProps): JSX.Element {
   const [activeCard, setActiveCard] = useState<Offer | undefined>(undefined);
   const offerCards = useAppSelector((state) => state.offersList);
   const currentCity = useAppSelector((state) => state.city);
@@ -42,7 +42,7 @@ function MainPage({ placesCount, offers, city }: MainPageProps): JSX.Element {
             <div className='cities__places-container container'>
               <section className='cities__places places'>
                 <h2 className='visually-hidden'>Places</h2>
-                <b className='places__found'>${placesCount} places to stay in {currentCity}</b>
+                <b className='places__found'>{findOffersQuantity(currentCity, offers)} places to stay in {currentCity}</b>
                 <form className='places__sorting' action='#' method='get'>
                   <span className='places__sorting-caption'>Sort by</span>
                   <span className='places__sorting-type' tabIndex={0}>

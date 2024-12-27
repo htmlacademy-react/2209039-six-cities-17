@@ -10,22 +10,20 @@ import { HelmetProvider } from 'react-helmet-async';
 import Offer, {City, Reviews} from '../../types/types';
 
 type AppScreenProps = {
-  placesCount: number;
-  cardsCount: number;
   offers: Offer[];
   city: City;
   reviews: Reviews;
   offersNearby: Offer[];
 }
 
-function App ({placesCount, cardsCount, offers, city, reviews, offersNearby}: AppScreenProps) : JSX.Element {
+function App ({ offers, city, reviews, offersNearby}: AppScreenProps) : JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoute.Root}
-            element={<MainPage placesCount={placesCount} cardsCount={cardsCount} offers={offers} city={city}/>}
+            element={<MainPage offers={offers} city={city}/>}
           />
           <Route
             path={AppRoute.Login}

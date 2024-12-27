@@ -11,19 +11,12 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-const Setting = {
-  PlacesCount: 312,
-  CardsCount: 5
-} as const;
-
 store.dispatch(fillOffersList(offers));
 
 root.render(
   <React.StrictMode>
     <Provider store={store}>
       <App
-        placesCount={Setting.PlacesCount}
-        cardsCount={Setting.CardsCount}
         offers={offers}
         city={city}
         reviews={reviews}
