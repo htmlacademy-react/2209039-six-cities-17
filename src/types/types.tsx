@@ -1,10 +1,12 @@
+export type CityNames = 'Paris' | 'Cologne' | 'Brussels' | 'Amsterdam' | 'Hamburg' | 'Dusseldorf';
+
 type Offer = {
   id: string;
   title: string;
   type: string;
   price: number;
   city: {
-  name: string;
+  name: CityNames;
   location: {
   latitude: number;
   longitude: number;
@@ -29,7 +31,7 @@ export type FormDataType = {
 };
 
 export type City = {
-  name: string;
+  name: CityNames;
   location: {
     latitude: number;
     longitude: number;
@@ -53,6 +55,12 @@ export type Review = {
   comment: string;
   rating: number;
 };
+
+export type InitialState = {
+  city: CityNames;
+  offersList: Offer[];
+};
+
 
 export type Reviews = Review[];
 

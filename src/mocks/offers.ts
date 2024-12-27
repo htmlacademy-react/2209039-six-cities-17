@@ -92,6 +92,29 @@ export const offers: Offer[] = [
     'isPremium': false,
     'rating': 4,
     'previewImage': 'https://mriyaresort.com/upload/iblock/626/imzvegenaf3cpjl8yk0y9yoeulj3q1bg.jpg'
+  },
+  {
+    'id': '6af6f711-c28d-4121-82cd-e0b462a27f04',
+    'title': 'Good hotel at great location',
+    'type': 'apartment',
+    'price': 109,
+    'city': {
+      'name': 'Paris',
+      'location': {
+        'latitude': 52.35514938496378,
+        'longitude': 4.673877537499948,
+        'zoom': 8
+      }
+    },
+    'location': {
+      'latitude': 5.3909553943508,
+      'longitude': 41.929309666406198,
+      'zoom': 8
+    },
+    'isFavorite': false,
+    'isPremium': false,
+    'rating': 3,
+    'previewImage': 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/15/6d/d6/paris.jpg?w=1400&h=1400&s=1'
   }
 ];
 
@@ -174,4 +197,27 @@ export const offersNearby: Offer[] = [
     'rating': 3,
     'previewImage': 'https://viasun.ru/blog/wp-content/uploads/2023/06/sochi-park-otel.jpg'
   },
+  {
+    'id': '6af6f711-c28d-4121-82cd-e0b462a27f04',
+    'title': 'Good hotel at great location',
+    'type': 'apartment',
+    'price': 109,
+    'city': {
+      'name': 'Paris',
+      'location': {
+        'latitude': 52.35514938496378,
+        'longitude': 4.673877537499948,
+        'zoom': 8
+      }
+    },
+    'location': {
+      'latitude': 5.3909553943508,
+      'longitude': 41.929309666406198,
+      'zoom': 8
+    },
+    'isFavorite': false,
+    'isPremium': false,
+    'rating': 3,
+    'previewImage': 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/15/6d/d6/paris.jpg?w=1400&h=1400&s=1'
+  }
 ];

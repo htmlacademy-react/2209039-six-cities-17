@@ -1,3 +1,5 @@
+import { CityNames } from '../types/types';
+
 export enum AppRoute {
   Root = '/',
   Login = '/login',
@@ -26,3 +28,7 @@ export const CITY = {
     zoom: 8,
   }
 };
+
+export const CITY_LIST: CityNames[] = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+
+export const DEFAULT_CITY: CityNames = 'Paris';

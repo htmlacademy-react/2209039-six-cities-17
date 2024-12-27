@@ -4,22 +4,25 @@ import PlaceCardList from '../../place-card/place-card-list';
 import MainPageEmpty from './main-page-empty';
 import Offer, {City} from '../../../types/types';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import Map from '../../map/map';
+import { LocationsList } from '../../locations/locations-list';
+import { useAppSelector } from '../../hooks/use-app-dispatch';
+import { findOffersQuantity } from '../../../utils';
 
 type MainPageProps = {
-  placesCount: number;
-  cardsCount: number;
   offers: Offer[];
   city: City;
 }
 
-function MainPage({ placesCount, cardsCount, offers, city }: MainPageProps): JSX.Element {
+function MainPage({ offers, city }: MainPageProps): JSX.Element {
   const [activeCard, setActiveCard] = useState<Offer | undefined>(undefined);
+  const offerCards = useAppSelector((state) => state.offersList);
+  const currentCity = useAppSelector((state) => state.city);
+  const cardsByCity = offerCards.filter((card) => card.city.name === currentCity);
 
 
   const handleActiveCardChange = (itemId: string | null) => {
-    const currentCard = offers.find((card) => card.id === itemId);
+    const currentCard = cardsByCity.find((card) => card.id === itemId);
     return setActiveCard(currentCard);
   };
 
@@ -29,50 +32,17 @@ function MainPage({ placesCount, cardsCount, offers, city }: MainPageProps): JSX
         <title>6 cities</title>
       </Helmet>
       <Header />
-      <main className={cardsCount ? 'page__main page__main--index' : 'page__main page__main--index page__main--index-empty'}>
+      <main className={cardsByCity.length ? 'page__main page__main--index' : 'page__main page__main--index page__main--index-empty'}>
         <h1 className='visually-hidden'>Cities</h1>
         <div className='tabs'>
-          <section className='locations container'>
-            <ul className='locations__list tabs__list'>
-              <li className='locations__item'>
-                <Link className='locations__item-link tabs__item' to='#'>
-                  <span>Paris</span>
-                </Link>
-              </li>
-              <li className='locations__item'>
-                <Link className='locations__item-link tabs__item' to='#'>
-                  <span>Cologne</span>
-                </Link>
-              </li>
-              <li className='locations__item'>
-                <Link className='locations__item-link tabs__item' to='#'>
-                  <span>Brussels</span>
-                </Link>
-              </li>
-              <li className='locations__item'>
-                <Link className='locations__item-link tabs__item tabs__item--active' to='#'>
-                  <span>Amsterdam</span>
-                </Link>
-              </li>
-              <li className='locations__item'>
-                <Link className='locations__item-link tabs__item' to='#'>
-                  <span>Hamburg</span>
-                </Link>
-              </li>
-              <li className='locations__item'>
-                <Link className='locations__item-link tabs__item' to='#'>
-                  <span>Dusseldorf</span>
-                </Link>
-              </li>
-            </ul>
-          </section>
+          <LocationsList currentCity={currentCity} />
         </div>
         <div className='cities'>
-          {cardsCount ?
+          {cardsByCity.length ?
             <div className='cities__places-container container'>
               <section className='cities__places places'>
                 <h2 className='visually-hidden'>Places</h2>
-                <b className='places__found'>${placesCount} places to stay in Amsterdam</b>
+                <b className='places__found'>{findOffersQuantity(currentCity, offers)} places to stay in {currentCity}</b>
                 <form className='places__sorting' action='#' method='get'>
                   <span className='places__sorting-caption'>Sort by</span>
                   <span className='places__sorting-type' tabIndex={0}>
@@ -88,7 +58,7 @@ function MainPage({ placesCount, cardsCount, offers, city }: MainPageProps): JSX
                     <li className='places__option' tabIndex={0}>Top rated first</li>
                   </ul>
                 </form>
-                <PlaceCardList onHandleActiveCardChange={handleActiveCardChange} offers={offers} />
+                <PlaceCardList onHandleActiveCardChange={handleActiveCardChange} offers={cardsByCity} />
               </section>
               <div className='cities__right-section'>
                 <Map city={city} offers={offers} activeCard={activeCard} page={'cities'}/>
