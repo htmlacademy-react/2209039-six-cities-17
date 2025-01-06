@@ -3,7 +3,7 @@ import Offer from '../../types/types';
 
 type NearPlaceListProps = {
   offers: Offer[];
-  onHandleActiveCardChange: (id: string | null) => void;
+  onHandleActiveCardChange?: (id: string | null) => void;
 }
 
 function NearPlaceList ({offers, onHandleActiveCardChange}:NearPlaceListProps): JSX.Element {
