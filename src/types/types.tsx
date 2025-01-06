@@ -59,7 +59,10 @@ export type Review = {
 export type InitialState = {
   city: CityNames;
   offersList: Offer[];
+  currentSort: SotringOption;
 };
+
+export type SotringOption = 'Popular' | 'Price: low to high' | 'Price: high to low' | 'Top rated first';
 
 
 export type Reviews = Review[];

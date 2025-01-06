@@ -111,7 +111,7 @@ export const offers: Offer[] = [
       'longitude': 41.929309666406198,
       'zoom': 8
     },
-    'isFavorite': false,
+    'isFavorite': true,
     'isPremium': false,
     'rating': 3,
     'previewImage': 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/15/6d/d6/paris.jpg?w=1400&h=1400&s=1'
@@ -215,7 +215,7 @@ export const offersNearby: Offer[] = [
       'longitude': 41.929309666406198,
       'zoom': 8
     },
-    'isFavorite': false,
+    'isFavorite': true,
     'isPremium': false,
     'rating': 3,
     'previewImage': 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/15/6d/d6/paris.jpg?w=1400&h=1400&s=1'

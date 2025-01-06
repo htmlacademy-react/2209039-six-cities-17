@@ -4,7 +4,7 @@ import CommentForm from '../../comment-form/comment-form';
 import ReviewList from '../../reviews/review-list';
 import Offer, { City, Reviews } from '../../../types/types';
 import Map from '../../map/map';
-import { useState } from 'react';
+// import { useState } from 'react';
 import NearPlaceList from '../../place-card/near-place-list';
 
 type OfferPageProps = {
@@ -14,13 +14,13 @@ type OfferPageProps = {
 }
 
 function OfferPage({reviews, city, offers}: OfferPageProps): JSX.Element {
-  const [activeCard, setActiveCard] = useState<Offer | undefined>(undefined);
+  // const [activeCard, setActiveCard] = useState<Offer | undefined>(undefined);
 
 
-  const handleActiveCardChange = (itemId: string | null) => {
-    const currentCard = offers.find((card) => card.id === itemId);
-    return setActiveCard(currentCard);
-  };
+  // const handleActiveCardChange = (itemId: string | null) => {
+  //   const currentCard = offers.find((card) => card.id === itemId);
+  //   return setActiveCard(currentCard);
+  // };
 
   return (
     <div className="page">
@@ -154,12 +154,12 @@ function OfferPage({reviews, city, offers}: OfferPageProps): JSX.Element {
               </section>
             </div>
           </div>
-          <Map city={city} offers={offers} page='offer' activeCard={activeCard}/>
+          <Map city={city} offers={offers} page='offer'/>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <NearPlaceList offers={offers} onHandleActiveCardChange={handleActiveCardChange}/>
+            <NearPlaceList offers={offers}/>
           </section>
         </div>
       </main>

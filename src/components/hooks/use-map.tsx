@@ -1,10 +1,12 @@
 import {useEffect, useState, MutableRefObject, useRef} from 'react';
 import {Map, TileLayer} from 'leaflet';
 import {City} from '../../types/types';
+import { removeMapScroll } from '../../utils';
 
 function useMap(
   mapRef: MutableRefObject<HTMLElement | null>,
-  city: City
+  city: City,
+  page: 'offer' | 'cities'
 ): Map | null {
   const [map, setMap] = useState<Map | null>(null);
   const isRenderedRef = useRef<boolean>(false);
@@ -16,7 +18,8 @@ function useMap(
           lat: city.location.latitude,
           lng: city.location.longitude
         },
-        zoom: 10
+        zoom: 10,
+        scrollWheelZoom: removeMapScroll(page),
       });
 
       const layer = new TileLayer(
@@ -32,7 +35,7 @@ function useMap(
       setMap(instance);
       isRenderedRef.current = true;
     }
-  }, [mapRef, city]);
+  }, [mapRef, city, page]);
 
   return map;
 }
