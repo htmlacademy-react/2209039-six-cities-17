@@ -1,13 +1,25 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { DEFAULT_CITY, SortItem } from '../components/const';
-import { offers } from '../mocks/offers';
-import { changeCity, changeSorting, fillOffersList } from './action';
-import { InitialState } from '../types/types';
+import { AuthorizationStatus, DEFAULT_CITY, SortItem } from '../components/const';
+// import { offers } from '../mocks/offers';
+import { changeCity, changeSorting, fillOffersList, requireAuthorization } from './action';
+// import { fetchCards } from './api-actions';
+import Offer, { CityNames, SotringOption } from '../types/types';
+import { createAppAsyncThunk } from './api-actions';
+
+type InitialState = {
+  city: CityNames;
+  offersList: Offer[];
+  currentSort: SotringOption;
+  cardsLoading: boolean;
+  authorizationStatus: string;
+};
 
 const initialState: InitialState = {
   city: DEFAULT_CITY,
-  offersList: offers,
-  currentSort: SortItem.Popular
+  offersList: [],
+  currentSort: SortItem.Popular,
+  cardsLoading: false,
+  authorizationStatus: AuthorizationStatus.Unknown,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -21,6 +33,15 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(changeSorting, (state, action) => {
       state.currentSort = action.payload;
+    })
+    .addCase(requireAuthorization, (state, action)=> {
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(createAppAsyncThunk.pending, (state) => {
+      state.cardsLoading = true;
+    })
+    .addCase(createAppAsyncThunk.fulfilled, (state) => {
+      state.cardsLoading = false;
     });
 });
 

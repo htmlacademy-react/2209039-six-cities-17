@@ -37,3 +37,7 @@ export enum SortItem {
 export const CITY_LIST: CityNames[] = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
 export const DEFAULT_CITY: CityNames = 'Paris';
+
+export enum APIRoute {
+  Cards = '/offers'
+}
