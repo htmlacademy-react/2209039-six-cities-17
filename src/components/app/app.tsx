@@ -8,15 +8,16 @@ import PageNotFound from '../pages/page-not-found/page-not-found';
 import PrivateRoute from '../private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
 import Offer, {City, Reviews} from '../../types/types';
+import { useAppSelector } from '../hooks/use-app-dispatch';
 
 type AppScreenProps = {
-  offers: Offer[];
   city: City;
   reviews: Reviews;
   offersNearby: Offer[];
 }
 
-function App ({ offers, city, reviews, offersNearby}: AppScreenProps) : JSX.Element {
+function App ({ city, reviews, offersNearby}: AppScreenProps) : JSX.Element {
+  const offers = useAppSelector((state) => state.offersList);
   return (
     <HelmetProvider>
       <BrowserRouter>

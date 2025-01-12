@@ -19,16 +19,16 @@ const findOffersQuantity = (currentCity:CityNames, offers:Offer[]) => offers.fil
 const sortCards = (offers: Offer[], sortingType:string):Offer[] => {
   switch (sortingType) {
     case sortingType = 'Price: low to high':
-      offers = offers.sort((cardA, cardB) => cardA.price - cardB.price);
+      offers = [...offers].sort((cardA, cardB) => cardA.price - cardB.price);
       break;
     case sortingType = 'Price: high to low':
-      offers = offers.sort((cardA, cardB) => cardB.price - cardA.price);
+      offers = [...offers].sort((cardA, cardB) => cardB.price - cardA.price);
       break;
     case sortingType = 'Top rated first':
-      offers = offers.sort((cardA, cardB) => cardB.rating - cardA.rating);
+      offers = [...offers].sort((cardA, cardB) => cardB.rating - cardA.rating);
       break;
     case sortingType = 'Popular':
-      return offers;
+      return [...offers];
   }
 
   return offers;

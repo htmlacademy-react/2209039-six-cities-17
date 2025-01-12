@@ -9,6 +9,7 @@ import { LocationsList } from '../../locations/locations-list';
 import { useAppSelector } from '../../hooks/use-app-dispatch';
 import { findOffersQuantity } from '../../../utils';
 import Sorting from '../../sorting/sorting';
+import { SpinnerElement } from '../../spinner/spinner-element';
 
 type MainPageProps = {
   offers: Offer[];
@@ -20,7 +21,7 @@ function MainPage({ offers, city }: MainPageProps): JSX.Element {
   const offerCards = useAppSelector((state) => state.offersList);
   const currentCity = useAppSelector((state) => state.city);
   const cardsByCity = offerCards.filter((card) => card.city.name === currentCity);
-
+  const isCardsLoading = useAppSelector((state) => state.cardsLoading);
 
   const handleActiveCardChange = (itemId: string | null) => {
     const currentCard = cardsByCity.find((card) => card.id === itemId);
@@ -44,11 +45,11 @@ function MainPage({ offers, city }: MainPageProps): JSX.Element {
               <section className='cities__places places'>
                 <h2 className='visually-hidden'>Places</h2>
                 <b className='places__found'>{findOffersQuantity(currentCity, offers)} places to stay in {currentCity}</b>
-                <Sorting/>
-                <PlaceCardList onHandleActiveCardChange={handleActiveCardChange} offers={cardsByCity} />
+                <Sorting />
+                {isCardsLoading ? <SpinnerElement/> : <PlaceCardList onHandleActiveCardChange={handleActiveCardChange} />}
               </section>
               <div className='cities__right-section'>
-                <Map city={city} offers={cardsByCity} activeCard={activeCard} page={'cities'}/>
+                <Map city={city} offers={cardsByCity} activeCard={activeCard} page={'cities'} />
               </div>
             </div>
             : <MainPageEmpty />}
