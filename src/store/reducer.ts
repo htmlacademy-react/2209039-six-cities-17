@@ -4,7 +4,7 @@ import { AuthorizationStatus, DEFAULT_CITY, SortItem } from '../components/const
 import { changeCity, changeSorting, fillOffersList, requireAuthorization } from './action';
 // import { fetchCards } from './api-actions';
 import Offer, { CityNames, SotringOption } from '../types/types';
-import { createAppAsyncThunk } from './api-actions';
+import { loadOffersAsyncThunk } from './api-actions';
 
 type InitialState = {
   city: CityNames;
@@ -37,10 +37,10 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(requireAuthorization, (state, action)=> {
       state.authorizationStatus = action.payload;
     })
-    .addCase(createAppAsyncThunk.pending, (state) => {
+    .addCase(loadOffersAsyncThunk.pending, (state) => {
       state.cardsLoading = true;
     })
-    .addCase(createAppAsyncThunk.fulfilled, (state) => {
+    .addCase(loadOffersAsyncThunk.fulfilled, (state) => {
       state.cardsLoading = false;
     });
 });

@@ -1,7 +1,7 @@
 function SpinnerElement (): JSX.Element {
 
   return (
-    <p>Loading... Please, wait!
+    <p style={{fontSize: '200px'}}>Loading... Please, wait!
     </p>
   );
 }

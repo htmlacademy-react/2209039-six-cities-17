@@ -40,15 +40,13 @@ function MainPage({ offers, city }: MainPageProps): JSX.Element {
           <LocationsList currentCity={currentCity} />
         </div>
         <div className='cities'>
-          {isCardsLoading ??
-            <SpinnerElement />}
           {cardsByCity.length ?
             <div className='cities__places-container container'>
               <section className='cities__places places'>
                 <h2 className='visually-hidden'>Places</h2>
                 <b className='places__found'>{findOffersQuantity(currentCity, offers)} places to stay in {currentCity}</b>
                 <Sorting />
-                <PlaceCardList onHandleActiveCardChange={handleActiveCardChange} offers={cardsByCity} />
+                {isCardsLoading ? <SpinnerElement/> : <PlaceCardList onHandleActiveCardChange={handleActiveCardChange} />}
               </section>
               <div className='cities__right-section'>
                 <Map city={city} offers={cardsByCity} activeCard={activeCard} page={'cities'} />

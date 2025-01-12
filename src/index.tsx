@@ -5,13 +5,13 @@ import { Provider } from 'react-redux';
 import { city, offersNearby } from './mocks/offers';
 import { reviews } from './mocks/reviews';
 import { store } from './store';
-import { createAppAsyncThunk } from './store/api-actions';
+import { loadOffersAsyncThunk } from './store/api-actions';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-store.dispatch(createAppAsyncThunk());
+store.dispatch(loadOffersAsyncThunk());
 
 root.render(
   <React.StrictMode>

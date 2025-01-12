@@ -6,7 +6,7 @@ import { fillOffersList } from './action';
 import { APIRoute } from '../components/const';
 import { AppDispatch, State } from '../types/state';
 
-export const createAppAsyncThunk = createAsyncThunk<void, undefined, {
+export const loadOffersAsyncThunk = createAsyncThunk<void, undefined, {
   state: State;
   dispatch: AppDispatch;
   extra: AxiosInstance;
