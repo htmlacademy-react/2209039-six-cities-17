@@ -1,5 +1,10 @@
 import { ChangeEvent, useState } from 'react';
 import { FormDataType } from '../../types/types';
+import { useAppDispatch } from '../hooks/use-app-dispatch';
+import { postCommentToOffer } from '../../store/api-actions';
+
+const MIN_COMMENT_LENGTH = 50;
+const MAX_COMMENT_LENGTH = 300;
 
 const defaultFormState: FormDataType = {
   rating: null,
@@ -11,6 +16,8 @@ function CommentForm () : JSX.Element {
   const [formData, setFormData] = useState(defaultFormState);
   const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(true);
 
+  const dispatch = useAppDispatch();
+
 
   const handleChangeComment = (evt: ChangeEvent<HTMLTextAreaElement>) => {
     setFormData((prevState) => ({
@@ -18,7 +25,7 @@ function CommentForm () : JSX.Element {
       comment: evt.target.value
     }));
 
-    if (formData.comment.length > 50 && formData.comment.length < 300) {
+    if (formData.comment.length > MIN_COMMENT_LENGTH && formData.comment.length < MAX_COMMENT_LENGTH) {
       setIsSubmitButtonDisabled(false);
     }
   };
@@ -32,6 +39,17 @@ function CommentForm () : JSX.Element {
 
   const handleFormSubmit = (evt: ChangeEvent<HTMLFormElement>) => {
     evt.preventDefault();
+    if (offerId) {
+      dispatch(postCommentToOffer({
+        id: offerId,
+        comment: formData
+      }))
+        .then((response) => {
+          if (response.meta.requestStatus === 'fulfilled') {
+            setFormData(defaultFormState);
+          }
+        });
+    }
     setFormData(defaultFormState);
     setIsSubmitButtonDisabled(true);
   };

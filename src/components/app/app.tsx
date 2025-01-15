@@ -8,7 +8,11 @@ import PageNotFound from '../pages/page-not-found/page-not-found';
 import PrivateRoute from '../private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
 import Offer, {City, Reviews} from '../../types/types';
-import { useAppSelector } from '../hooks/use-app-dispatch';
+import { useAppDispatch, useAppSelector } from '../hooks/use-app-dispatch';
+import { useEffect } from 'react';
+import { loadOffersAsyncThunk } from '../../store/api-actions';
+import { SpinnerElement } from '../spinner/spinner-element';
+import { getLoadingStatus, getOffers } from '../../store/selectors';
 
 type AppScreenProps = {
   city: City;
@@ -17,7 +21,17 @@ type AppScreenProps = {
 }
 
 function App ({ city, reviews, offersNearby}: AppScreenProps) : JSX.Element {
-  const offers = useAppSelector((state) => state.offersList);
+  const offers = useAppSelector(getOffers);
+  const dispatch = useAppDispatch();
+  const isLoading = useAppSelector(getLoadingStatus);
+  useEffect(() => {
+    dispatch(loadOffersAsyncThunk());
+  }, [dispatch]);
+
+  if (isLoading) {
+    return < SpinnerElement/>;
+  }
+
   return (
     <HelmetProvider>
       <BrowserRouter>

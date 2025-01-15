@@ -1,6 +1,9 @@
+import { useDispatch } from 'react-redux';
 import Offer from '../../types/types';
 import { countStarsNumber } from '../../utils';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { getOfferInfo } from '../../store/api-actions';
+import { APIRoute } from '../const';
 
 type PlaceCardProps = {
   offer: Offer;
@@ -11,6 +14,19 @@ type PlaceCardProps = {
 function PlaceCard(props: PlaceCardProps): JSX.Element {
   const { offer, onHandleActiveCardChange, cardType } = props;
   const { isPremium, previewImage, price, title, type, rating, id } = offer;
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const hadnleCardClick = (evt: MouseEvent) => {
+    evt.preventDefault();
+    dispatch(getOfferInfo(id))
+      .then((response) => {
+        if (response.meta.requestStatus === 'fulfilled') {
+          navigate(`${APIRoute.Cards}/${id}`);
+        }
+      });
+  };
 
   return (
     <article className={`${cardType}__card place-card`}
@@ -24,7 +40,9 @@ function PlaceCard(props: PlaceCardProps): JSX.Element {
         </div>
         : ''}
       <div className='cities__image-wrapper place-card__image-wrapper'>
-        <Link to='#'>
+        <Link to="#"
+          onClick={hadnleCardClick}
+        >
           <img className='place-card__image' src={previewImage} width='260' height='200' alt='Place image' />
         </Link>
       </div>
