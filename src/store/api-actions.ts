@@ -92,14 +92,14 @@ export const fetchOfferComments = createAsyncThunk<Reviews, string, {
   }
 );
 
-export const postCommentToOffer = createAsyncThunk<Review, PostComment, {
+export const postCommentToOffer = createAsyncThunk<OfferForPage, Review, {
   state: State;
   dispatch: AppDispatch;
   extra: AxiosInstance;
 }>(
   'offer/fetchOfferComments',
-  async ({id, comment}, {extra: api}) => {
-    const {data} = await api.post<Review>(`${APIRoute.Comments}/${id}`, {comment: comment.review, rating: +comment.rating});
+  async ({id, comment, rating}, {extra: api}) => {
+    const {data} = await api.post<Review>(`${APIRoute.Comments}/${id}`, {comment: comment, rating: rating});
     return data;
   }
 );

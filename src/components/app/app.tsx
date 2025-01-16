@@ -7,7 +7,7 @@ import OfferPage from '../pages/offer-page/offer-page';
 import PageNotFound from '../pages/page-not-found/page-not-found';
 import PrivateRoute from '../private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
-import Offer, {City, Reviews} from '../../types/types';
+import {City} from '../../types/types';
 import { useAppDispatch, useAppSelector } from '../hooks/use-app-dispatch';
 import { useEffect } from 'react';
 import { loadOffersAsyncThunk } from '../../store/api-actions';
@@ -16,11 +16,9 @@ import { getLoadingStatus, getOffers } from '../../store/selectors';
 
 type AppScreenProps = {
   city: City;
-  reviews: Reviews;
-  offersNearby: Offer[];
 }
 
-function App ({ city, reviews, offersNearby}: AppScreenProps) : JSX.Element {
+function App ({ city}: AppScreenProps) : JSX.Element {
   const offers = useAppSelector(getOffers);
   const dispatch = useAppDispatch();
   const isLoading = useAppSelector(getLoadingStatus);
@@ -56,7 +54,7 @@ function App ({ city, reviews, offersNearby}: AppScreenProps) : JSX.Element {
           />
           <Route
             path={AppRoute.Offer}
-            element={<OfferPage reviews={reviews} offers={offersNearby} city={city}/>}
+            element={<OfferPage city={city}/>}
           />
           <Route
             path='*'

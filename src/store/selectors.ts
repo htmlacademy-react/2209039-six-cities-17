@@ -10,6 +10,8 @@ export const findCityCards = (state: State):Offer[] => getOffers(state).filter((
 export const getAuthorizationStatus = ((state: State) => state.authorizationStatus);
 export const getOffer = ((state: State) => state.offerInfo);
 export const getUserInfo = ((state: State) => state.userInfo);
+export const getNearbyCards = ((state: State) => state.nearbyOffers);
+export const getReviews = ((state: State) => state.comments);
 
 export const getSortedCards = createSelector(
   [findCityCards, getCurrentFilter],

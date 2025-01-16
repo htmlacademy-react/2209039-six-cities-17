@@ -1,7 +1,9 @@
 export type CityNames = 'Paris' | 'Cologne' | 'Brussels' | 'Amsterdam' | 'Hamburg' | 'Dusseldorf';
 
+export type OfferId = string;
+
 type Offer = {
-  id: string;
+  id: OfferId;
   title: string;
   type: string;
   price: number;
@@ -26,7 +28,7 @@ type Offer = {
 
 
 export type FormDataType = {
-  rating: number | null;
+  rating: number;
   comment: string;
 };
 
@@ -45,7 +47,7 @@ export type Card = {
 };
 
 export type Review = {
-  id: string;
+  id: OfferId;
   date: string;
   user: {
     name: string;
@@ -89,7 +91,7 @@ export type PostComment = {
 }
 
 export type OfferForPage = {
-  id: string;
+  id: OfferId;
   title: string;
   type: string;
   price: number;

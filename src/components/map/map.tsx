@@ -2,7 +2,7 @@ import {useRef, useEffect} from 'react';
 import {Icon, Marker, layerGroup} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../const';
-import Offer, {City} from '../../types/types';
+import Offer, {City, OfferForPage} from '../../types/types';
 import useMap from '../hooks/use-map';
 import { counntMapStyle } from '../../utils';
 
@@ -23,10 +23,11 @@ type MapProps = {
   offers: Offer[];
   activeCard?: Offer | undefined;
   page: 'offer' | 'cities';
+  offerOnPage?: OfferForPage;
 };
 
 function Map(props: MapProps): JSX.Element {
-  const {city, offers, activeCard, page} = props;
+  const {city, offers, activeCard, page, offerOnPage} = props;
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, city, page);
@@ -55,11 +56,27 @@ function Map(props: MapProps): JSX.Element {
           .addTo(markerLayer);
       });
 
+      if (offerOnPage) {
+        const marker = new Marker({
+          lat: offerOnPage.location.latitude,
+          lng: offerOnPage.location.longitude,
+        });
+
+        map.panTo({
+          lat: offerOnPage.location.latitude,
+          lng: offerOnPage.location.longitude,
+        });
+
+        marker
+          .setIcon(currentCustomIcon)
+          .addTo(markerLayer);
+      }
+
       return () => {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offers, activeCard]);
+  }, [map, offers, activeCard, offerOnPage]);
 
   return <section className={`${page}__map map`} style={{height:counntMapStyle(page)}} ref={mapRef}></section>;
 }

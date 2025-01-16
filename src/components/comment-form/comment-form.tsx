@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from 'react';
-import { FormDataType } from '../../types/types';
+import { FormDataType, OfferId } from '../../types/types';
 import { useAppDispatch } from '../hooks/use-app-dispatch';
 import { postCommentToOffer } from '../../store/api-actions';
 
@@ -7,12 +7,16 @@ const MIN_COMMENT_LENGTH = 50;
 const MAX_COMMENT_LENGTH = 300;
 
 const defaultFormState: FormDataType = {
-  rating: null,
+  rating: 0,
   comment: ''
 };
 
+type CommentFormProps = {
+  offerId: OfferId;
+}
 
-function CommentForm () : JSX.Element {
+
+function CommentForm ({offerId}: CommentFormProps) : JSX.Element {
   const [formData, setFormData] = useState(defaultFormState);
   const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(true);
 
@@ -42,7 +46,8 @@ function CommentForm () : JSX.Element {
     if (offerId) {
       dispatch(postCommentToOffer({
         id: offerId,
-        comment: formData
+        rating: formData.rating,
+        comment: formData.comment
       }))
         .then((response) => {
           if (response.meta.requestStatus === 'fulfilled') {

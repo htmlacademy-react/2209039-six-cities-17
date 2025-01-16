@@ -1,10 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { LoggedUser } from '../../types/types';
-import { useAppDispatch, useAppSelector } from '../hooks/use-app-dispatch';
-import { getAuthorizationStatus } from '../../store/selectors';
+import { useAppDispatch} from '../hooks/use-app-dispatch';
 import { logoutAction } from '../../store/api-actions';
 import { AppRoute } from '../const';
-import { MouseEventHandler } from 'react';
 
 type HeaderNavLoggedProps = {
   user: LoggedUser;
@@ -12,12 +10,10 @@ type HeaderNavLoggedProps = {
 
 function HeaderNavLogged({user}: HeaderNavLoggedProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const authStatus = useAppSelector(getAuthorizationStatus);
 
   const navigate = useNavigate();
 
-  const handleLogout = (evt: MouseEvent) => {
-    evt.preventDefault();
+  const handleLogout: React.MouseEventHandler<HTMLAnchorElement> = () => {
     dispatch(logoutAction())
       .then((response) => {
         if (response.meta.requestStatus === 'fulfilled') {

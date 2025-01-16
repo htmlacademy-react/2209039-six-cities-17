@@ -1,7 +1,7 @@
 import Offer, {CityNames} from './types/types';
 import * as dayjs from 'dayjs';
 
-const countStarsNumber = (rating: number): string => `${rating * 20}%`;
+const countStarsNumber = (rating: number): string => `${Math.round(rating * 20)}%`;
 const groupCardsByCities = (cities: Offer[]) => {
   const result = Object.groupBy(cities, (card: Offer): string => card.city.name);
 

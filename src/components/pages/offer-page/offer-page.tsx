@@ -2,24 +2,24 @@ import { Helmet } from 'react-helmet-async';
 import Header from '../../header/header';
 import CommentForm from '../../comment-form/comment-form';
 import ReviewList from '../../reviews/review-list';
-import Offer, { City, Reviews } from '../../../types/types';
+import { City} from '../../../types/types';
 import Map from '../../map/map';
 import NearPlaceList from '../../place-card/near-place-list';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/use-app-dispatch';
 import { useEffect } from 'react';
 import { fetchNearbyCards, fetchOfferComments, getOfferInfo } from '../../../store/api-actions';
-import { getAuthorizationStatus, getLoadingStatus, getOffer } from '../../../store/selectors';
+import { getAuthorizationStatus, getLoadingStatus, getNearbyCards, getOffer, getReviews } from '../../../store/selectors';
 import { SpinnerElement } from '../../spinner/spinner-element';
 import PageNotFound from '../page-not-found/page-not-found';
+import { countStarsNumber } from '../../../utils';
+import { AuthorizationStatus } from '../../const';
 
 type OfferPageProps = {
-  reviews: Reviews;
   city: City;
-  offers: Offer[];
 }
 
-function OfferPage({reviews, city, offers}: OfferPageProps): JSX.Element {
+function OfferPage({city}: OfferPageProps): JSX.Element {
   const {id} = useParams();
   const dispatch = useAppDispatch();
 
@@ -38,16 +38,18 @@ function OfferPage({reviews, city, offers}: OfferPageProps): JSX.Element {
   const isLoading = useAppSelector(getLoadingStatus);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const offer = useAppSelector(getOffer);
+  const nearbyOffers = useAppSelector(getNearbyCards).slice(-3);
+  const reviews = useAppSelector(getReviews);
 
   if (isLoading) {
     return <SpinnerElement />;
   }
 
-  if (!offer) {
-    return <PageNotFound/>;
+  if (!offer || !id) {
+    return < PageNotFound/>;
   }
 
-  const {title, type, price, images, description, bedrooms, isPremium, isFavorite, goods, maxAdults, host, rating, id: offerId} = offer;
+  const {title, type, price, images, description, bedrooms, isPremium, goods, maxAdults, host, rating} = offer;
 
   return (
     <div className="page">
@@ -82,7 +84,7 @@ function OfferPage({reviews, city, offers}: OfferPageProps): JSX.Element {
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{ width: '80%' }}></span>
+                  <span style={{ width: countStarsNumber(rating) }}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="offer__rating-value rating__value">{rating}</span>
@@ -130,16 +132,16 @@ function OfferPage({reviews, city, offers}: OfferPageProps): JSX.Element {
               <section className="offer__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
                 <ReviewList reviews={reviews}/>
-                <CommentForm />
+                {authorizationStatus === AuthorizationStatus.Auth ?? <CommentForm offerId={id}/>}
               </section>
             </div>
           </div>
-          <Map city={city} offers={offers} page='offer'/>
+          <Map city={city} offers={nearbyOffers} offerOnPage={offer} page='offer'/>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <NearPlaceList offers={offers}/>
+            <NearPlaceList offers={nearbyOffers}/>
           </section>
         </div>
       </main>
