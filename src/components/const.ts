@@ -1,11 +1,13 @@
 import { CityNames } from '../types/types';
 
-export enum AppRoute {
-  Root = '/',
-  Login = '/login',
-  Favorites = '/favorites',
-  Offer = '/offer/:id'
-}
+export const AppRoute = {
+  Root: '/',
+  Login: '/login',
+  Favorites: '/favorites',
+  Offer: '/offer/:id'
+} as const;
+
+export const idGetter = (id: string) => id;
 
 export enum AuthorizationStatus {
   Auth = 'AUTH',
@@ -39,5 +41,8 @@ export const CITY_LIST: CityNames[] = ['Paris', 'Cologne', 'Brussels', 'Amsterda
 export const DEFAULT_CITY: CityNames = 'Paris';
 
 export enum APIRoute {
-  Cards = '/offers'
+  Cards = '/offers',
+  Login = '/login',
+  Logout = '/logout',
+  Comments = '/comments',
 }

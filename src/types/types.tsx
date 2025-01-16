@@ -1,7 +1,9 @@
 export type CityNames = 'Paris' | 'Cologne' | 'Brussels' | 'Amsterdam' | 'Hamburg' | 'Dusseldorf';
 
+export type OfferId = string;
+
 type Offer = {
-  id: string;
+  id: OfferId;
   title: string;
   type: string;
   price: number;
@@ -26,7 +28,7 @@ type Offer = {
 
 
 export type FormDataType = {
-  rating: number | null;
+  rating: number;
   comment: string;
 };
 
@@ -45,7 +47,7 @@ export type Card = {
 };
 
 export type Review = {
-  id: string;
+  id: OfferId;
   date: string;
   user: {
     name: string;
@@ -64,3 +66,59 @@ export type Reviews = Review[];
 export default Offer;
 
 export type Token = string;
+
+export type ErrorType = {
+  type: string;
+  message: string;
+}
+
+export type LoggedUser = {
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
+  email: string;
+  token: string;
+}
+
+export type AuthData = {
+  email: string;
+  password: string;
+}
+
+export type PostComment = {
+  comment: string;
+  rating: number;
+}
+
+export type OfferForPage = {
+  id: OfferId;
+  title: string;
+  type: string;
+  price: number;
+  city: {
+  name: string;
+  location: {
+  latitude: number;
+  longitude: number;
+  zoom: number;
+  };
+  };
+  location: {
+  latitude: number;
+  longitude: number;
+  zoom: number;
+  };
+  isFavorite: boolean;
+  isPremium: boolean;
+  rating: number;
+  description: string;
+  bedrooms: number;
+  goods: [string];
+  host: {
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
+  };
+  images: [string];
+  maxAdults: number;
+  }

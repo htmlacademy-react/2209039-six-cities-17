@@ -3,11 +3,17 @@ import { State } from '../types/state';
 import { sortCards } from '../utils';
 import Offer from '../types/types';
 
-export const currentFilter = (state: State) => state.currentSort;
-export const offers = (state: State) => state.offersList;
-export const findCityCards = (state: State):Offer[] => offers(state).filter((card) => card.city.name === state.city);
+export const getCurrentFilter = (state: State) => state.currentSort;
+export const getOffers = (state: State) => state.offersList;
+export const getLoadingStatus = ((state: State) => state.cardsLoading);
+export const findCityCards = (state: State):Offer[] => getOffers(state).filter((card) => card.city.name === state.city);
+export const getAuthorizationStatus = ((state: State) => state.authorizationStatus);
+export const getOffer = ((state: State) => state.offerInfo);
+export const getUserInfo = ((state: State) => state.userInfo);
+export const getNearbyCards = ((state: State) => state.nearbyOffers);
+export const getReviews = ((state: State) => state.comments);
 
 export const getSortedCards = createSelector(
-  [findCityCards, currentFilter],
+  [findCityCards, getCurrentFilter],
   (cards, filter) => sortCards(cards, filter)
 );

@@ -1,6 +1,7 @@
 import Offer from '../../types/types';
 import { countStarsNumber } from '../../utils';
 import { Link } from 'react-router-dom';
+import { AppRoute } from '../const';
 
 type PlaceCardProps = {
   offer: Offer;
@@ -11,6 +12,8 @@ type PlaceCardProps = {
 function PlaceCard(props: PlaceCardProps): JSX.Element {
   const { offer, onHandleActiveCardChange, cardType } = props;
   const { isPremium, previewImage, price, title, type, rating, id } = offer;
+
+  const route = AppRoute.Offer.replace(':id', id);
 
   return (
     <article className={`${cardType}__card place-card`}
@@ -24,7 +27,7 @@ function PlaceCard(props: PlaceCardProps): JSX.Element {
         </div>
         : ''}
       <div className='cities__image-wrapper place-card__image-wrapper'>
-        <Link to='#'>
+        <Link to={route}>
           <img className='place-card__image' src={previewImage} width='260' height='200' alt='Place image' />
         </Link>
       </div>
