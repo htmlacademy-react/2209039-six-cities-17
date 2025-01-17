@@ -45,9 +45,8 @@ function CommentForm ({offerId}: CommentFormProps) : JSX.Element {
     evt.preventDefault();
     if (offerId) {
       dispatch(postCommentToOffer({
-        id: offerId,
-        rating: formData.rating,
-        comment: formData.comment
+        comment: formData.comment,
+        rating: formData.rating
       }))
         .then((response) => {
           if (response.meta.requestStatus === 'fulfilled') {

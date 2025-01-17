@@ -3,7 +3,7 @@ import * as dayjs from 'dayjs';
 
 const countStarsNumber = (rating: number): string => `${Math.round(rating * 20)}%`;
 const groupCardsByCities = (cities: Offer[]) => {
-  const result = Object.groupBy(cities, (card: Offer): string => card.city.name);
+  const result = Object.groupBy(cities, (card: Offer) => card.city.name);
 
   return result;
 };

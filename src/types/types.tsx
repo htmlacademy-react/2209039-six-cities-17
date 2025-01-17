@@ -47,7 +47,7 @@ export type Card = {
 };
 
 export type Review = {
-  id: OfferId;
+  id: string;
   date: string;
   user: {
     name: string;
