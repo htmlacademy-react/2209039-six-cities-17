@@ -19,7 +19,7 @@ function Header(): JSX.Element {
           <div className="header__left">
           </div>
           <nav className="header__nav">
-            {authStatus === AuthorizationStatus.Auth ? <HeaderNavLogged user={user} /> : <HeaderNavNotLogged />}
+            {user ? <HeaderNavLogged user={user} /> : <HeaderNavNotLogged />}
           </nav>
         </div>
       </div>

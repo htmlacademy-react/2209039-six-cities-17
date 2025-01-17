@@ -6,6 +6,7 @@ import { fillOffersList } from './action';
 import { APIRoute } from '../components/const';
 import { AppDispatch, State } from '../types/state';
 import { dropToken, saveToken } from '../services/token';
+import { useAppSelector } from '../components/hooks/use-app-dispatch';
 
 export const loadOffersAsyncThunk = createAsyncThunk<void, undefined, {
   state: State;
@@ -92,13 +93,14 @@ export const fetchOfferComments = createAsyncThunk<Reviews, string, {
   }
 );
 
-export const postCommentToOffer = createAsyncThunk<OfferForPage, Review, {
+export const postCommentToOffer = createAsyncThunk<Review, PostComment, {
   state: State;
   dispatch: AppDispatch;
   extra: AxiosInstance;
 }>(
-  'offer/fetchOfferComments',
-  async ({id, comment, rating}, {extra: api}) => {
+  'offer/postOfferComment',
+  async ({comment, rating}, { extra: api}) => {
+    const id = useAppSelector((state) => state.offerInfo?.id);
     const {data} = await api.post<Review>(`${APIRoute.Comments}/${id}`, {comment: comment, rating: rating});
     return data;
   }
