@@ -6,7 +6,7 @@ import { fillOffersList } from './action';
 import { APIRoute } from '../components/const';
 import { AppDispatch, State } from '../types/state';
 import { dropToken, saveToken } from '../services/token';
-import { useAppSelector } from '../components/hooks/use-app-dispatch';
+import { getOfferId } from './selectors';
 
 export const loadOffersAsyncThunk = createAsyncThunk<void, undefined, {
   state: State;
@@ -99,8 +99,8 @@ export const postCommentToOffer = createAsyncThunk<Review, PostComment, {
   extra: AxiosInstance;
 }>(
   'offer/postOfferComment',
-  async ({comment, rating}, { extra: api}) => {
-    const id = useAppSelector((state) => state.offerInfo?.id);
+  async ({comment, rating}, { extra: api, getState}) => {
+    const id = getOfferId(getState());
     const {data} = await api.post<Review>(`${APIRoute.Comments}/${id}`, {comment: comment, rating: rating});
     return data;
   }

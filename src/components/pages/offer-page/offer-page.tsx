@@ -9,11 +9,10 @@ import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/use-app-dispatch';
 import { useEffect } from 'react';
 import { fetchNearbyCards, fetchOfferComments, getOfferInfo } from '../../../store/api-actions';
-import { getAuthorizationStatus, getLoadingStatus, getNearbyCards, getOffer, getReviews } from '../../../store/selectors';
+import { getLoadingStatus, getNearbyCards, getOffer, getReviews, isAuth } from '../../../store/selectors';
 import { SpinnerElement } from '../../spinner/spinner-element';
 import PageNotFound from '../page-not-found/page-not-found';
 import { countStarsNumber } from '../../../utils';
-import { AuthorizationStatus } from '../../const';
 
 type OfferPageProps = {
   city: City;
@@ -22,24 +21,24 @@ type OfferPageProps = {
 function OfferPage({city}: OfferPageProps): JSX.Element {
   const {id} = useParams();
   const dispatch = useAppDispatch();
+  const reviews = useAppSelector(getReviews);
 
   useEffect(() => {
     if (id) {
       dispatch(getOfferInfo(id))
         .then((response) => {
           if (response.meta.requestStatus === 'fulfilled') {
-            dispatch(fetchNearbyCards(id));
             dispatch(fetchOfferComments(id));
+            dispatch(fetchNearbyCards(id));
           }
         });
     }
-  }, [id, dispatch]);
+  }, [id, dispatch, reviews]);
 
   const isLoading = useAppSelector(getLoadingStatus);
-  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const authorized = useAppSelector(isAuth);
   const offer = useAppSelector(getOffer);
   const nearbyOffers = useAppSelector(getNearbyCards).slice(-3);
-  const reviews = useAppSelector(getReviews);
 
   if (isLoading) {
     return <SpinnerElement />;
@@ -132,7 +131,7 @@ function OfferPage({city}: OfferPageProps): JSX.Element {
               <section className="offer__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
                 <ReviewList reviews={reviews}/>
-                {authorizationStatus === AuthorizationStatus.Auth ? <CommentForm offerId={id}/> : ''}
+                {authorized && <CommentForm offerId={id}/>}
               </section>
             </div>
           </div>
