@@ -7,18 +7,13 @@ import OfferPage from '../pages/offer-page/offer-page';
 import PageNotFound from '../pages/page-not-found/page-not-found';
 import PrivateRoute from '../private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
-import {City} from '../../types/types';
 import { useAppDispatch, useAppSelector } from '../hooks/use-app-dispatch';
 import { useEffect } from 'react';
 import { loadOffersAsyncThunk } from '../../store/api-actions';
 import { SpinnerElement } from '../spinner/spinner-element';
 import { getLoadingStatus, getOffers } from '../../store/selectors';
 
-type AppScreenProps = {
-  city: City;
-}
-
-function App ({ city}: AppScreenProps) : JSX.Element {
+function App () : JSX.Element {
   const offers = useAppSelector(getOffers);
   const dispatch = useAppDispatch();
   const isLoading = useAppSelector(getLoadingStatus);
@@ -36,7 +31,7 @@ function App ({ city}: AppScreenProps) : JSX.Element {
         <Routes>
           <Route
             path={AppRoute.Root}
-            element={<MainPage offers={offers} city={city}/>}
+            element={<MainPage/>}
           />
           <Route
             path={AppRoute.Login}
@@ -54,7 +49,7 @@ function App ({ city}: AppScreenProps) : JSX.Element {
           />
           <Route
             path={AppRoute.Offer}
-            element={<OfferPage city={city}/>}
+            element={<OfferPage />}
           />
           <Route
             path='*'

@@ -13,7 +13,6 @@ const findCityCards = (cities: Offer[], currentCity: CityNames):Offer[] => citie
 const findFavoriteCards = (cities: Offer[]) => cities.filter((city) => city.isFavorite);
 
 const convertDateToMonthYearType = (date: string):string => dayjs(date).format('MMMM YYYY');
-const counntMapStyle = (className:string):string => className === 'cities' ? '100%' : '579px';
 const findOffersQuantity = (currentCity:CityNames, offers:Offer[]) => offers.filter((offer) => offer.city.name === currentCity).length;
 
 const sortCards = (offers: Offer[], sortingType:string):Offer[] => {
@@ -42,4 +41,4 @@ const removeMapScroll = (page: string): boolean => {
   return true;
 };
 
-export {countStarsNumber, groupCardsByCities, convertDateToMonthYearType, counntMapStyle, findFavoriteCards, findCityCards, findOffersQuantity, sortCards, removeMapScroll};
+export {countStarsNumber, groupCardsByCities, convertDateToMonthYearType, findFavoriteCards, findCityCards, findOffersQuantity, sortCards, removeMapScroll};

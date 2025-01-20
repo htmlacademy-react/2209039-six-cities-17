@@ -1,11 +1,11 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { AuthorizationStatus, DEFAULT_CITY, SortItem } from '../components/const';
 import { changeCity, changeSorting, fillOffersList, requireAuthorization } from './action';
-import Offer, { CityNames, LoggedUser, OfferForPage, Reviews, SotringOption } from '../types/types';
+import Offer, { City, LoggedUser, OfferForPage, Reviews, SotringOption } from '../types/types';
 import { checkAuthStatus, fetchNearbyCards, fetchOfferComments, getOfferInfo, loadOffersAsyncThunk, loginAction, logoutAction } from './api-actions';
 
 type InitialState = {
-  city: CityNames;
+  city: City;
   offersList: Offer[];
   currentSort: SotringOption;
   cardsLoading: boolean;
@@ -40,7 +40,7 @@ const reducer = createReducer(initialState, (builder) => {
       state.offersList = action.payload;
     }).
     addCase(changeCity, (state, action) => {
-      state.city = action.payload;
+      state.city.name = action.payload;
       state.currentSort = initialState.currentSort;
     })
     .addCase(changeSorting, (state, action) => {

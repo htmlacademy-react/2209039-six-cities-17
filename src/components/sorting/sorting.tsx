@@ -1,9 +1,9 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, memo } from 'react';
 import { SortItem } from '../const';
 import { useAppDispatch, useAppSelector } from '../hooks/use-app-dispatch';
 import { changeSorting } from '../../store/action';
 
-function Sorting(): JSX.Element {
+function SortingTemplate(): JSX.Element {
   const [menuOpenState, setMenuOpenState] = useState(false);
   const sortingRef = useRef<HTMLElement>(null);
   const dispatch = useAppDispatch();
@@ -49,5 +49,7 @@ function Sorting(): JSX.Element {
     </form>
   );
 }
+
+const Sorting = memo(SortingTemplate);
 
 export default Sorting;

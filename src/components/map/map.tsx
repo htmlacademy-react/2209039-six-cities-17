@@ -2,9 +2,9 @@ import {useRef, useEffect} from 'react';
 import {Icon, Marker, layerGroup} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../const';
-import Offer, {City, OfferForPage} from '../../types/types';
+import Offer, {OfferForPage} from '../../types/types';
 import useMap from '../hooks/use-map';
-import { counntMapStyle } from '../../utils';
+import { useAppSelector } from '../hooks/use-app-dispatch';
 
 const defaultCustomIcon = new Icon({
   iconUrl: URL_MARKER_DEFAULT,
@@ -19,7 +19,6 @@ const currentCustomIcon = new Icon({
 });
 
 type MapProps = {
-  city: City;
   offers: Offer[];
   activeCard?: Offer | undefined;
   page: 'offer' | 'cities';
@@ -27,7 +26,8 @@ type MapProps = {
 };
 
 function Map(props: MapProps): JSX.Element {
-  const {city, offers, activeCard, page, offerOnPage} = props;
+  const {offers, activeCard, page, offerOnPage} = props;
+  const city = useAppSelector((state) => state.city);
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, city, page);
@@ -78,7 +78,7 @@ function Map(props: MapProps): JSX.Element {
     }
   }, [map, offers, activeCard, offerOnPage]);
 
-  return <section className={`${page}__map map`} style={{height:counntMapStyle(page)}} ref={mapRef}></section>;
+  return <section className={`${page}__map map`} ref={mapRef}></section>;
 }
 
 export default Map;
