@@ -6,7 +6,7 @@ import Offer from '../types/types';
 export const getCurrentFilter = (state: State) => state.currentSort;
 export const getOffers = (state: State) => state.offersList;
 export const getLoadingStatus = ((state: State) => state.cardsLoading);
-export const findCityCards = (state: State):Offer[] => getOffers(state).filter((card) => card.city.name === state.city);
+export const findCityCards = (state: State):Offer[] => getOffers(state).filter((card) => card.city.name === state.city.name);
 export const getAuthorizationStatus = ((state: State) => state.authorizationStatus);
 export const getOffer = ((state: State) => state.offerInfo);
 export const getUserInfo = ((state: State) => state.userInfo);
@@ -14,6 +14,7 @@ export const getNearbyCards = ((state: State) => state.nearbyOffers);
 export const getReviews = ((state: State) => state.comments);
 export const isAuth = ((state: State) => state.authorizationStatus === 'AUTH');
 export const getOfferId = ((state: State) => state.offerInfo?.id);
+export const getCurrentCity = ((state: State) => state.city.name);
 
 export const getSortedCards = createSelector(
   [findCityCards, getCurrentFilter],

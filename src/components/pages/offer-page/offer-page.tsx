@@ -2,7 +2,6 @@ import { Helmet } from 'react-helmet-async';
 import Header from '../../header/header';
 import CommentForm from '../../comment-form/comment-form';
 import ReviewList from '../../reviews/review-list';
-import { City} from '../../../types/types';
 import Map from '../../map/map';
 import NearPlaceList from '../../place-card/near-place-list';
 import { useParams } from 'react-router-dom';
@@ -14,11 +13,7 @@ import { SpinnerElement } from '../../spinner/spinner-element';
 import PageNotFound from '../page-not-found/page-not-found';
 import { countStarsNumber } from '../../../utils';
 
-type OfferPageProps = {
-  city: City;
-}
-
-function OfferPage({city}: OfferPageProps): JSX.Element {
+function OfferPage(): JSX.Element {
   const {id} = useParams();
   const dispatch = useAppDispatch();
   const reviews = useAppSelector(getReviews);
@@ -135,7 +130,7 @@ function OfferPage({city}: OfferPageProps): JSX.Element {
               </section>
             </div>
           </div>
-          <Map city={city} offers={nearbyOffers} offerOnPage={offer} page='offer'/>
+          <Map offers={nearbyOffers} offerOnPage={offer} page='offer'/>
         </section>
         <div className="container">
           <section className="near-places places">

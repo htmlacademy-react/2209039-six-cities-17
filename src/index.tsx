@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import { Provider } from 'react-redux';
-import { city } from './mocks/offers';
 import { store } from './store';
 import { checkAuthStatus, loadOffersAsyncThunk } from './store/api-actions';
 import { ToastContainer } from 'react-toastify';
@@ -17,9 +16,7 @@ store.dispatch(checkAuthStatus());
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App
-        city={city}
-      />
+      <App/>
       <ToastContainer />
     </Provider>
   </React.StrictMode>
