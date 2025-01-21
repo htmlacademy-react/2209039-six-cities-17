@@ -10,8 +10,6 @@ const groupCardsByCities = (cities: Offer[]) => {
 
 const findCityCards = (cities: Offer[], currentCity: CityNames):Offer[] => cities.filter((card) => card.city.name === currentCity);
 
-const findFavoriteCards = (cities: Offer[]) => cities.filter((city) => city.isFavorite);
-
 const convertDateToMonthYearType = (date: string):string => dayjs(date).format('MMMM YYYY');
 const findOffersQuantity = (currentCity:CityNames, offers:Offer[]) => offers.filter((offer) => offer.city.name === currentCity).length;
 

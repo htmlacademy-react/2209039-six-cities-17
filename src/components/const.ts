@@ -30,16 +30,22 @@ export const DEFAULT_CITY = {
   }
 };
 
-export enum SortItem {
-  Popular = 'Popular',
-  PriceToHigh = 'Price: low to high',
-  PriceToLow = 'Price: high to low',
-  TopRatedList = 'Top rated first',
-}
+export const SortItem = {
+  Popular: 'Popular',
+  PriceToHigh: 'Price: low to high',
+  PriceToLow: 'Price: high to low',
+  TopRatedList: 'Top rated first',
+} as const;
 
 export enum APIRoute {
   Cards = '/offers',
   Login = '/login',
   Logout = '/logout',
   Comments = '/comments',
+  Favorite = '/favorite'
+}
+
+export enum NameSpace {
+  User = 'USER',
+  Offer = 'OFFER'
 }

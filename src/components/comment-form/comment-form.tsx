@@ -1,7 +1,8 @@
 import { ChangeEvent, useState } from 'react';
 import { FormDataType, OfferId } from '../../types/types';
 import { useAppDispatch } from '../hooks/use-app-dispatch';
-import { postCommentToOffer } from '../../store/api-actions';
+import { fetchOfferComments, postCommentToOffer } from '../../store/api-actions';
+import { toast } from 'react-toastify';
 
 const MIN_COMMENT_LENGTH = 50;
 const MAX_COMMENT_LENGTH = 300;
@@ -51,6 +52,9 @@ function CommentForm ({offerId}: CommentFormProps) : JSX.Element {
         .then((response) => {
           if (response.meta.requestStatus === 'fulfilled') {
             setFormData(defaultFormState);
+            dispatch(fetchOfferComments(offerId));
+          } else {
+            toast.warn(`Ваш комментарий должен быть длиной от ${MIN_COMMENT_LENGTH} до ${MAX_COMMENT_LENGTH}. А также не забудьте поставить свою оценку`);
           }
         });
     }
