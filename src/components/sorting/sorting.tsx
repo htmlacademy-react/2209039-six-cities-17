@@ -1,13 +1,14 @@
 import { useState, useRef, useEffect, memo } from 'react';
 import { SortItem } from '../const';
 import { useAppDispatch, useAppSelector } from '../hooks/use-app-dispatch';
-import { changeSorting } from '../../store/action';
+import { getSortingType } from '../../store/selectors';
+import { changeSorting } from '../../store/offer-process/offer-process';
 
 function SortingTemplate(): JSX.Element {
   const [menuOpenState, setMenuOpenState] = useState(false);
   const sortingRef = useRef<HTMLElement>(null);
   const dispatch = useAppDispatch();
-  const currentSort = useAppSelector((state) => state.currentSort);
+  const currentSort = useAppSelector(getSortingType);
 
   useEffect(() => {
     const hideSortOptions = (evt: MouseEvent) => {

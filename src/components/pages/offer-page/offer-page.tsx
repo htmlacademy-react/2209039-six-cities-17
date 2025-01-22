@@ -12,6 +12,7 @@ import { getLoadingStatus, getNearbyCards, getOffer, getReviews, isAuth } from '
 import { SpinnerElement } from '../../spinner/spinner-element';
 import PageNotFound from '../page-not-found/page-not-found';
 import { countStarsNumber } from '../../../utils';
+import FavoriteButton from '../../favorite-button/favorite-button';
 
 function OfferPage(): JSX.Element {
   const {id} = useParams();
@@ -28,18 +29,17 @@ function OfferPage(): JSX.Element {
           }
         });
     }
-  }, [id, dispatch, reviews]);
+  }, [id, dispatch]);
 
   const isLoading = useAppSelector(getLoadingStatus);
   const authorized = useAppSelector(isAuth);
   const offer = useAppSelector(getOffer);
   const nearbyOffers = useAppSelector(getNearbyCards).slice(-3);
 
-  if (isLoading) {
-    return <SpinnerElement />;
-  }
-
   if (!offer || !id) {
+    if (isLoading) {
+      return <SpinnerElement />;
+    }
     return < PageNotFound/>;
   }
 
@@ -69,12 +69,7 @@ function OfferPage(): JSX.Element {
                 <h1 className="offer__name">
                   {title}
                 </h1>
-                <button className="offer__bookmark-button button" type="button">
-                  <svg className="offer__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"></use>
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                <FavoriteButton className='offer' offerId={id}/>
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">

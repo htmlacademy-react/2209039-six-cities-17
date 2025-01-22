@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../hooks/use-app-dispatch';
-import { changeCity } from '../../store/action';
 import { CityNames } from '../../types/types';
 import { memo, MouseEvent, useCallback } from 'react';
+import { changeCity } from '../../store/offer-process/offer-process';
 
 type LocationProps = {
   city: CityNames;

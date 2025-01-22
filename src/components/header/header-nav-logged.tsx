@@ -3,7 +3,7 @@ import { LoggedUser } from '../../types/types';
 import { useAppDispatch, useAppSelector} from '../hooks/use-app-dispatch';
 import { logoutAction } from '../../store/api-actions';
 import { AppRoute } from '../const';
-import { getOffers } from '../../store/selectors';
+import { getFavoriteCards } from '../../store/selectors';
 
 type HeaderNavLoggedProps = {
   user: LoggedUser;
@@ -11,11 +11,9 @@ type HeaderNavLoggedProps = {
 
 function HeaderNavLogged({user}: HeaderNavLoggedProps): JSX.Element {
   const dispatch = useAppDispatch();
-
   const navigate = useNavigate();
 
-  const cards = useAppSelector(getOffers);
-  const favCardsQuantity = cards.filter((card) => card.isFavorite).length;
+  const favCardsQuantity = useAppSelector(getFavoriteCards).length;
 
   const handleLogout: React.MouseEventHandler<HTMLAnchorElement> = () => {
     dispatch(logoutAction())
@@ -29,7 +27,7 @@ function HeaderNavLogged({user}: HeaderNavLoggedProps): JSX.Element {
   return (
     <ul className="header__nav-list">
       <li className="header__nav-item user">
-        <Link className="header__nav-link header__nav-link--profile" to="#">
+        <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites }>
           <div className="header__avatar-wrapper user__avatar-wrapper">
           </div>
           <span className="header__user-name user__name">{user.email}</span>

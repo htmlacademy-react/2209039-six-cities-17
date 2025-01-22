@@ -1,20 +1,27 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { State } from '../types/state';
 import { sortCards } from '../utils';
-import Offer from '../types/types';
+import Offer, { OfferId } from '../types/types';
+import { NameSpace } from '../components/const';
 
-export const getCurrentFilter = (state: State) => state.currentSort;
-export const getOffers = (state: State) => state.offersList;
-export const getLoadingStatus = ((state: State) => state.cardsLoading);
-export const findCityCards = (state: State):Offer[] => getOffers(state).filter((card) => card.city.name === state.city.name);
-export const getAuthorizationStatus = ((state: State) => state.authorizationStatus);
-export const getOffer = ((state: State) => state.offerInfo);
-export const getUserInfo = ((state: State) => state.userInfo);
-export const getNearbyCards = ((state: State) => state.nearbyOffers);
-export const getReviews = ((state: State) => state.comments);
-export const isAuth = ((state: State) => state.authorizationStatus === 'AUTH');
-export const getOfferId = ((state: State) => state.offerInfo?.id);
-export const getCurrentCity = ((state: State) => state.city.name);
+export const getCurrentFilter = (state: State) => state[NameSpace.Offer].currentSort;
+export const getOffers = (state: State) => state[NameSpace.Offer].offersList;
+export const getLoadingStatus = ((state: State) => state[NameSpace.Offer].cardsLoading);
+export const findCityCards = (state: State):Offer[] => getOffers(state).filter((card) => card.city.name === state[NameSpace.Offer].city.name);
+export const getOffer = ((state: State) => state[NameSpace.Offer].offerInfo);
+export const getNearbyCards = ((state: State) => state[NameSpace.Offer].nearbyOffers);
+export const getReviews = ((state: State) => state[NameSpace.Offer].comments);
+export const getOfferId = ((state: State) => state[NameSpace.Offer].offerInfo?.id);
+export const getCurrentCity = ((state: State) => state[NameSpace.Offer].city.name);
+export const getSortingType = ((state: State) => state[NameSpace.Offer].currentSort);
+export const getFavoriteCards = ((state: State) => state[NameSpace.Offer].favoriteOffers);
+export const getFavoriteCardById = ((state: State, id: OfferId) => state[NameSpace.Offer].favoriteOffers
+  .findIndex((offer) => offer.id === id) !== -1);
+
+
+export const isAuth = ((state: State) => state[NameSpace.User].authorizationStatus === 'AUTH');
+export const getUserInfo = ((state: State) => state[NameSpace.User].userInfo);
+export const getAuthorizationStatus = ((state: State) => state[NameSpace.User].authorizationStatus);
 
 export const getSortedCards = createSelector(
   [findCityCards, getCurrentFilter],

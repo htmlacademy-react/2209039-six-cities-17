@@ -1,7 +1,7 @@
 import {useRef, useEffect} from 'react';
 import {Icon, Marker, layerGroup} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../const';
+import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT, NameSpace} from '../const';
 import Offer, {OfferForPage} from '../../types/types';
 import useMap from '../hooks/use-map';
 import { useAppSelector } from '../hooks/use-app-dispatch';
@@ -27,7 +27,7 @@ type MapProps = {
 
 function Map(props: MapProps): JSX.Element {
   const {offers, activeCard, page, offerOnPage} = props;
-  const city = useAppSelector((state) => state.city);
+  const city = useAppSelector((state) => state[NameSpace.Offer].city);
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, city, page);

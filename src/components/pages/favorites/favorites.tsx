@@ -1,44 +1,26 @@
 import { Helmet } from 'react-helmet-async';
 import Header from '../../header/header';
-// import FavoritesEmpty from './favorites-empty';
-import FavoritesGroup from './favorites-group';
-import Offer from '../../../types/types';
-import { groupCardsByCities, findFavoriteCards } from '../../../utils';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import FavoritesEmpty from './favorites-empty';
+import FavoritesCards from './favorites-cards';
+import { useAppSelector } from '../../hooks/use-app-dispatch';
+import { getFavoriteCards } from '../../../store/selectors';
 
-type FavoritesProps = {
-  offers: Offer[];
-}
+function Favorites(): JSX.Element {
+  const favoriteCards = useAppSelector(getFavoriteCards);
 
-function Favorites({ offers }: FavoritesProps): JSX.Element {
-  const favoriteCards = findFavoriteCards(offers);
-  const cardsGroups = groupCardsByCities(favoriteCards);
   return (
     <div className="page">
       <Helmet>
         <title>6 cities: favorites</title>
       </Helmet>
       <Header />
-      <main className='page__main page__main--favorites'>
+      <main className={`page__main page__main--favorites ${favoriteCards.length ? '' : 'page__main--favorites-empty'}`}>
         <div className="page__favorites-container container">
-
-          <section className="favorites">
-            <h1 className="favorites__title">Saved listing</h1>
-            <ul className="favorites__list">
-              {Object.keys(cardsGroups).map((cityKey) => {
-                const cityGroup: Offer[] = cardsGroups[cityKey] || [];
-                return (
-                  <FavoritesGroup
-                    key={cityKey}
-                    offers={cityGroup}
-                    city={cityKey}
-                  />
-                );
-              })}
-            </ul>
-          </section>
-
+          {favoriteCards.length
+            ? <FavoritesCards offers={favoriteCards}/>
+            : <FavoritesEmpty />}
         </div>
       </main>
       <footer className="footer container">

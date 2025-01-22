@@ -9,16 +9,16 @@ import PrivateRoute from '../private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
 import { useAppDispatch, useAppSelector } from '../hooks/use-app-dispatch';
 import { useEffect } from 'react';
-import { loadOffersAsyncThunk } from '../../store/api-actions';
+import { loadFavoriteOffers, loadOffersAsyncThunk } from '../../store/api-actions';
 import { SpinnerElement } from '../spinner/spinner-element';
-import { getLoadingStatus, getOffers } from '../../store/selectors';
+import { getLoadingStatus } from '../../store/selectors';
 
 function App () : JSX.Element {
-  const offers = useAppSelector(getOffers);
   const dispatch = useAppDispatch();
   const isLoading = useAppSelector(getLoadingStatus);
   useEffect(() => {
     dispatch(loadOffersAsyncThunk());
+    dispatch(loadFavoriteOffers());
   }, [dispatch]);
 
   if (isLoading) {
@@ -43,7 +43,7 @@ function App () : JSX.Element {
               <PrivateRoute
                 authorizationStatus={AuthorizationStatus.Auth}
               >
-                <Favorites offers={offers} />
+                <Favorites/>
               </PrivateRoute>
             }
           />
