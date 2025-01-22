@@ -1,11 +1,11 @@
 import Offer, {CityNames} from './types/types';
 import * as dayjs from 'dayjs';
 
-const countStarsNumber = (rating: number): string => `${Math.round(rating * 20)}%`;
+const countStarsNumber = (rating: number): string => `${(Math.round(rating) * 20)}%`;
 const groupCardsByCities = (cities: Offer[]) => {
-  const result = Object.groupBy(cities, (card: Offer) => card.city.name);
-
-  return result;
+  const cityNames = cities.map((city) => city.city.name);
+  const uniqueNames = Array.from([... new Set(cityNames)]);
+  return uniqueNames;
 };
 
 const findCityCards = (cities: Offer[], currentCity: CityNames):Offer[] => cities.filter((card) => card.city.name === currentCity);
@@ -39,4 +39,4 @@ const removeMapScroll = (page: string): boolean => {
   return true;
 };
 
-export {countStarsNumber, groupCardsByCities, convertDateToMonthYearType, findFavoriteCards, findCityCards, findOffersQuantity, sortCards, removeMapScroll};
+export {countStarsNumber, groupCardsByCities, convertDateToMonthYearType, findCityCards, findOffersQuantity, sortCards, removeMapScroll};

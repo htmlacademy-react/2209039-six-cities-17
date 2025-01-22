@@ -36,11 +36,10 @@ function OfferPage(): JSX.Element {
   const offer = useAppSelector(getOffer);
   const nearbyOffers = useAppSelector(getNearbyCards).slice(-3);
 
-  if (isLoading) {
-    return <SpinnerElement />;
-  }
-
   if (!offer || !id) {
+    if (isLoading) {
+      return <SpinnerElement />;
+    }
     return < PageNotFound/>;
   }
 
@@ -70,7 +69,7 @@ function OfferPage(): JSX.Element {
                 <h1 className="offer__name">
                   {title}
                 </h1>
-                <FavoriteButton className='offer'/>
+                <FavoriteButton className='offer' offerId={id}/>
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">

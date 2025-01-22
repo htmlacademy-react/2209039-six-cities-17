@@ -1,7 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { State } from '../types/state';
 import { sortCards } from '../utils';
-import Offer from '../types/types';
+import Offer, { OfferId } from '../types/types';
 import { NameSpace } from '../components/const';
 
 export const getCurrentFilter = (state: State) => state[NameSpace.Offer].currentSort;
@@ -14,6 +14,9 @@ export const getReviews = ((state: State) => state[NameSpace.Offer].comments);
 export const getOfferId = ((state: State) => state[NameSpace.Offer].offerInfo?.id);
 export const getCurrentCity = ((state: State) => state[NameSpace.Offer].city.name);
 export const getSortingType = ((state: State) => state[NameSpace.Offer].currentSort);
+export const getFavoriteCards = ((state: State) => state[NameSpace.Offer].favoriteOffers);
+export const getFavoriteCardById = ((state: State, id: OfferId) => state[NameSpace.Offer].favoriteOffers
+  .findIndex((offer) => offer.id === id) !== -1);
 
 
 export const isAuth = ((state: State) => state[NameSpace.User].authorizationStatus === 'AUTH');

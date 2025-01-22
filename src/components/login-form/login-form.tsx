@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { FormEvent, useRef } from 'react';
 import { useAppDispatch } from '../hooks/use-app-dispatch';
-import { loginAction } from '../../store/api-actions';
+import { loadOffersAsyncThunk, loginAction } from '../../store/api-actions';
 import { AppRoute } from '../const';
 import { toast } from 'react-toastify';
 
@@ -20,6 +20,7 @@ function LoginForm(): JSX.Element {
       }))
         .then((response) => {
           if (response.meta.requestStatus === 'fulfilled') {
+            dispatch(loadOffersAsyncThunk);
             navigate(AppRoute.Root);
           } else {
             toast.warn('Please enter correct email and password');

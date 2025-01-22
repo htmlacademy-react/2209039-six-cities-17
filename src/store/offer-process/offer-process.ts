@@ -3,7 +3,6 @@ import { DEFAULT_CITY, NameSpace, SortItem } from '../../components/const';
 import Offer, { City, CityNames, OfferForPage, Reviews, SotringOption } from '../../types/types';
 import { fetchNearbyCards, fetchOfferComments, getOfferInfo, loadFavoriteOffers, loadOffersAsyncThunk, postCommentToOffer, uploadFavoriteStatus } from '../api-actions';
 import { toast } from 'react-toastify';
-
 type offerProcess = {
   offersList: Offer[];
   cardsLoading: boolean;
@@ -83,10 +82,6 @@ export const offerProcessSlice = createSlice({
       })
       .addCase(loadFavoriteOffers.rejected, (state) => {
         state.isError = true;
-        toast.warn('Error while loading favorite offers attempt');
-      })
-      .addCase(uploadFavoriteStatus.pending, (state) => {
-        state.cardsLoading = true;
       })
       .addCase(uploadFavoriteStatus.rejected, (state) => {
         state.cardsLoading = false;
@@ -94,8 +89,9 @@ export const offerProcessSlice = createSlice({
         toast.warn('Error while uploading offers status');
       })
       .addCase(uploadFavoriteStatus.fulfilled,(state, action) => {
+        state.cardsLoading = false;
         if(action.payload.isFavorite) {
-          state.favoriteOffers.push(action.payload)
+          state.favoriteOffers.push(action.payload);
         } else {
           const favoriteIndex = state.favoriteOffers.findIndex((card) => card.id === action.payload.id);
           state.favoriteOffers.splice(favoriteIndex, 1);

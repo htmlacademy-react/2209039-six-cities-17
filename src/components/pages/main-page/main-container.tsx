@@ -2,7 +2,7 @@ import Sorting from '../../sorting/sorting';
 import PlaceCardList from '../../place-card/place-card-list';
 import Map from '../../map/map';
 import { useMemo, useState } from 'react';
-import { findOffersQuantity } from '../../../utils';
+import { findOffersQuantity, groupCardsByCities } from '../../../utils';
 import Offer from '../../../types/types';
 import { getCurrentCity, getOffers, getSortedCards } from '../../../store/selectors';
 import { useAppSelector } from '../../hooks/use-app-dispatch';
@@ -13,6 +13,8 @@ function MainConatainer(): JSX.Element {
   const currentCity = useAppSelector(getCurrentCity);
   const cardsByCity = useMemo(() => offerCards.filter((card) => card.city.name === currentCity), [offerCards, currentCity]) ;
   const sortedCards = useAppSelector(getSortedCards);
+
+  groupCardsByCities(offerCards);
 
   const handleActiveCardChange = (itemId: string | null) => {
     const currentCard = cardsByCity.find((card) => card.id === itemId);
